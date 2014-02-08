@@ -1,0 +1,6 @@
+name: MineSQLAPI
+version: 1.0 (1.7.2+)
+description: API to make integrating MySQL into Bukkit quick and easy.
+author: hatten33
+
+main: net.aerenserve.minesql.MineSQLAPI
