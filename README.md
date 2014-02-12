@@ -22,7 +22,7 @@ First, we need to make a new MineSQL instance.
 
 //Creating a new MineSQL instance
 
-minesql = new MineSQL(this, 'localhost', '3306', 'exampleDatabase', 'yourUser', '1337p4ssw0rd');
+minesql = new MineSQL(this, "localhost", "3306", "exampleDatabase", "yourUser", "1337p4ssw0rd");
 ```
 
 By using this constructor for a Table, we can create a new table.
