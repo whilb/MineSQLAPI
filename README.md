@@ -64,10 +64,10 @@ ArrayList<HashMap<String, String>> table = myTable.openTable();
 for(HashMap<String, String> hm : table) {
 	Iterator<Entry<String, String>> it = hm.entrySet().iterator();
 	  while (it.hasNext()) {
-		  Map.Entry<String, String> entry = (Entry<String, String>) it.next();
-			System.out.println(entry.getKey() + " : " + entry.getValue());
-			}
+		Map.Entry<String, String> entry = (Entry<String, String>) it.next();
+		System.out.println(entry.getKey() + " : " + entry.getValue());
 	}
+}
 ```
 
 
