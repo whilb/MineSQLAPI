@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import org.bukkit.plugin.Plugin;
 
 public class MineSQL extends Database {
+	
+	//private List<Statement> openStatement;
 
 	private final String user;
     private final String database;
@@ -20,7 +22,7 @@ public class MineSQL extends Database {
     private Connection connection;
 
     /**
-     * Creates a new MySQL database instance
+     * Creates a new MySQL database instance and opens a connection.
      * 
      * @param plugin - Plugin instance
      * @param hostname - Database Server hostname         
@@ -37,19 +39,13 @@ public class MineSQL extends Database {
         this.database = database;
         this.user = username;
         this.password = password;
-        this.connection = null;
+        this.connection = openConnection();
     }
     
-    /**
-     * Opens a new connection to your MySQL database
-     * 
-     * @return Connection
-     */
-    
-    public Connection openConnection() {
+    private Connection openConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database, this.user, this.password);
+            connection = DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database + "?autoReconnect=true", this.user, this.password);
         } catch (SQLException e) {
             plugin.getLogger().log(Level.SEVERE, "Could not connect to MySQL server! because: " + e.getMessage());
         } catch (ClassNotFoundException e) {
@@ -58,15 +54,15 @@ public class MineSQL extends Database {
         return connection;
     }
     
+    @Override
     public Connection getConnection() {
-    	return connection;
-    }
-
-    public boolean checkConnection() {
-    	if(connection != null) return true; 
-    	else return false;
+    	if(connection == null) {
+    		connection = openConnection();
+    	}
+		return connection;
     }
     
+    @Override
     public void closeConnection() {
         if (connection != null) {
             try {
@@ -89,14 +85,11 @@ public class MineSQL extends Database {
      * @throws SQLException
      */
     
+    @Override
     public ResultSet querySQL(String query) throws SQLException {
-    	Connection c = connection;
+    	Connection c = getConnection();
     	ResultSet res = null;
         PreparedStatement statement = null;
-        
-        if(c == null) {
-            c = openConnection();
-        }
         
         try {
             c.setAutoCommit(false);   
@@ -114,15 +107,34 @@ public class MineSQL extends Database {
 	            }
 	        }
 		} finally {
-	        if (statement != null) {
-	            statement.close();
+	        /*if (statement != null) {
+	        	//openStatement.add(statement);	     
 	            statement = null;
-	        }
+	        }*/
 	        c.setAutoCommit(true);
-	    }
+	    }     
        
         return res;
+        
+     
     }
+    
+    /**
+     * May or may not be used.
+     *
+     */
+    
+    /*public void queryComplete() {
+    	try {
+    		Statement s = openStatement.get(0);
+	    	if(s != null) {
+	    		openStatement.remove(0);
+	    		s.close();
+	    	}
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}   	
+    }*/
     
     /**
      * Sends a statement to the database.
@@ -131,14 +143,11 @@ public class MineSQL extends Database {
      * @throws SQLException
      */
 
+    @Override
     public void updateSQL(String update) throws SQLException {
-    	Connection c = connection;
+    	Connection c = getConnection();
         PreparedStatement statement = null;
-        
-        if(c == null) {
-            c = openConnection();
-        }
-        
+     
         try {
             c.setAutoCommit(false);   
 			statement = c.prepareStatement(update);
@@ -160,6 +169,8 @@ public class MineSQL extends Database {
 	        }
 	        c.setAutoCommit(true);
 	    }
+        
+        closeConnection();
        
         return;
     }
