@@ -3,15 +3,14 @@ package net.aerenserve.minesql;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import org.bukkit.plugin.Plugin;
+import java.util.logging.Logger;
 
 public abstract class Database {
+	
+	protected Logger logger;
 
-	protected Plugin plugin;
-
-	protected Database(Plugin plugin) {
-		this.plugin = plugin;
+	protected Database(Logger logger) {
+		this.logger = logger;
 	}
 	
 	public abstract ResultSet querySQL(String query) throws SQLException;

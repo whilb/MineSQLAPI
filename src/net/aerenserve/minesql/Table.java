@@ -113,6 +113,26 @@ public class Table {
 		}
 		return table;
 	}
+	
+	public Integer getRowId(String column, String value) {
+		ResultSet res = null;
+		Integer rowId = null;
+		try {
+			res = minesql.querySQL("SELECT * FROM " + name + " WHERE " + column + " = '" + value + "';");
+			if(res == null) {
+				return null;
+			}		
+			if(res.next()) {
+				rowId = res.getInt("id");
+				return rowId;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rowId; 
+	}
 
 	/**
 	 * Method to get the value of a column from the row with the specified ID. 
