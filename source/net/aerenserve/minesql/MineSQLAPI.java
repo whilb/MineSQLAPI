@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  * MineSQLAPI v1.3
  * 
- * An API to make working with MySQL and Bukkit (and Bungeecord!) quick and easy.
+ * An API to make working with MySQL and Bukkit (and Bungeecord! No, not Bungeecord. :( ) quick and easy.
  *
  * You may use this code according to these conditions:
  *
