@@ -4,7 +4,7 @@ MineSQLAPI
 API for making the integration of MySQL into Bukkit plugins quick and easy. If you find a bug or have an improvement, I'd love to hear.
 
 Maven Info:
-```java
+```
 <repository>
 	<id>aerenserve-repo</id>
 	<url>http://repo.aerenserve.net</url>
