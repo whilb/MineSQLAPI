@@ -1,9 +1,11 @@
 package net.aerenserve.minesql;
 
+import java.sql.SQLException;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * MineSQLAPI v1.3
+ * MineSQLAPI v1.4
  * 
  * An API to make working with MySQL and Bukkit (and Bungeecord! No, not Bungeecord. :( ) quick and easy.
  *
@@ -19,17 +21,39 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class MineSQLAPI extends JavaPlugin {
 	
-	static String VERSION = "1.3";
+	public MineSQL defaultMineSQL;
 	
 	@Override
-	public void onEnable() {
-		getLogger().info("MineSQLAPI v" + VERSION + " hatten33 enabled");
+	public void onEnable() {	
+		saveDefaultConfig();
+
+		String host = getConfig().getString("database.ip");
+		String port = getConfig().getString("database.port");
+		String database = getConfig().getString("database.dbname");
+		String user = getConfig().getString("database.user");
+		String pass = getConfig().getString("database.pass");
+		
+		try {
+			this.defaultMineSQL = new MineSQL(this.getLogger(), host, port, database, user, pass);
+		} catch(SQLException sqle) {
+			sqle.printStackTrace();
+			this.defaultMineSQL = null;
+		}
+		
+		getLogger().info("MineSQLAPI by hatten33 enabled");
 	}
 	
 	@Override
 	public void onDisable() {
-		getLogger().info("MineSQLAPI v" + VERSION + " by hatten33 disabled");
+		getLogger().info("MineSQLAPI by hatten33 disabled");
+	}
+
+	public boolean hasDefault() {
+		return getDefault() != null;
 	}
 	
+	public MineSQL getDefault() {
+		return this.defaultMineSQL;
+	}
 	
 }

@@ -29,9 +29,10 @@ public class MineSQL extends Database {
 	 * @param database - Database name
 	 * @param username - Username
 	 * @param password - Password
+	 * @throws SQLException 
 	 */
 
-	public MineSQL(Logger logger, String hostname, String port, String database, String username, String password) {
+	public MineSQL(Logger logger, String hostname, String port, String database, String username, String password) throws SQLException {
 		super(logger);
 		this.hostname = hostname;
 		this.port = port;
@@ -41,7 +42,7 @@ public class MineSQL extends Database {
 		this.connection = openConnection();
 	}
 	
-	public MineSQL(String hostname, String port, String database, String username, String password) {
+	public MineSQL(String hostname, String port, String database, String username, String password) throws SQLException {
 		super(Logger.getLogger("Minecraft"));
 		this.hostname = hostname;
 		this.port = port;
@@ -51,12 +52,10 @@ public class MineSQL extends Database {
 		this.connection = openConnection();
 	}
 
-	private Connection openConnection() {
+	private Connection openConnection() throws SQLException {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://" + this.hostname + ":" + this.port + "/" + this.database + "?autoReconnect=true", this.user, this.password);
-		} catch (SQLException e) {
-			logger.log(Level.SEVERE, "Could not connect to MySQL server! because: " + e.getMessage());
 		} catch (ClassNotFoundException e) {
 			logger.log(Level.SEVERE, "JDBC Driver not found!");
 		}
