@@ -88,6 +88,10 @@ public class MineSQL extends Database {
 			logger.log(Level.SEVERE, "There is no connection to close!");
 		}
 	}
+	
+	public Table getTable(String tableName) {
+		return new Table(this, tableName);
+	}
 
 	/**
 	 * Method to get a ResultSet from querying the MySQL database

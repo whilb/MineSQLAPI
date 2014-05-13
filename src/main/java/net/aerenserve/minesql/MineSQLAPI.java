@@ -21,7 +21,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class MineSQLAPI extends JavaPlugin {
 	
-	public MineSQL defaultMineSQL;
+	public MineSQL defaultMineSQL = null;
 	
 	@Override
 	public void onEnable() {	
