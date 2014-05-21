@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.*;
 
 public class MineSQL extends Database {
 
@@ -19,6 +20,8 @@ public class MineSQL extends Database {
 	private final String hostname;
 
 	private Connection connection;
+	
+	//private Collection<Table> tables;
 
 	/**
 	 * Creates a new MySQL database instance and opens a connection.
@@ -43,13 +46,7 @@ public class MineSQL extends Database {
 	}
 	
 	public MineSQL(String hostname, String port, String database, String username, String password) throws SQLException {
-		super(Logger.getLogger("Minecraft"));
-		this.hostname = hostname;
-		this.port = port;
-		this.database = database;
-		this.user = username;
-		this.password = password;
-		this.connection = openConnection();
+		this(Logger.getLogger("Minecraft"), hostname, port, database, username, password);
 	}
 
 	private Connection openConnection() throws SQLException {
