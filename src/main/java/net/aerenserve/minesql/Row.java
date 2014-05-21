@@ -22,17 +22,18 @@ public class Row {
 	
 	public void addObject(String key, Object value) {
 		getStuff().put(key, value);
+		//TODO commit in database
 	}
 	
-	public Object get(String key) {
-		return getStuff().get(key);
+	public Object get(String column) {
+		return getStuff().get(column);
 	}
 	
-	public String getString(String key) {
-		return String.format("" + getStuff().get(key));
+	public String getString(String column) {
+		return String.format("" + getStuff().get(column));
 	}
 	
-	public Integer getInt(String key) {
-		return Integer.parseInt(getString(key));
+	public Integer getInt(String column) {
+		return Integer.parseInt(getString(column));
 	}
 }

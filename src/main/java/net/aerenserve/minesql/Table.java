@@ -47,4 +47,16 @@ public class Table {
 		}
 		return row;
 	}
+	
+	public Object getValue(String key, String column) {
+		return getRow(key).get(column);
+	}
+	
+	public String getString(String key, String column) {
+		return getRow(key).getString(column);
+	}
+	
+	public Integer getInt(String key, String column) {
+		return getRow(key).getInt(column);
+	}
 }
