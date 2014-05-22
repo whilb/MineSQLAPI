@@ -42,7 +42,7 @@ public class OldTable {
 
 		while (it.hasNext()) {
 			Map.Entry<String, String> entry = (Entry<String, String>) it.next();
-			sb.append(", " + entry.getKey() + " " + entry.getValue());	        
+			sb.append(", " + entry.getKey() + " " + entry.getValue());
 		}
 
 		sb.append(");");

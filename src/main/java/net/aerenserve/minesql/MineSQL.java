@@ -46,7 +46,7 @@ public class MineSQL extends Database {
 	}
 	
 	public MineSQL(String hostname, String port, String database, String username, String password) throws SQLException {
-		this(Logger.getLogger("Minecraft"), hostname, port, database, username, password);
+		this(Logger.getAnonymousLogger(), hostname, port, database, username, password);
 	}
 
 	private Connection openConnection() throws SQLException {
