@@ -24,12 +24,12 @@ public class Row {
 		getStuff().put(key, value);
 	}
 	
-	public Object get(String key) {
-		return getStuff().get(key);
+	public Object get(String column) {
+		return getStuff().get(column);
 	}
 	
-	public String getString(String key) {
-		return String.format("" + getStuff().get(key));
+	public String getString(String column) {
+		return String.format("" + getStuff().get(column));
 	}
 	
 	public Integer getInt(String key) {

@@ -27,7 +27,7 @@ public class Table {
 		return this.columns.getColumn(name);
 	}
 	
-	public Row getRow(String key) {
+	public Row getRow(Object key) {
 		Row row = null;
 		for(Column c : columns.columns()) {
 			if(c.isPrimary()) {
@@ -46,5 +46,9 @@ public class Table {
 			}
 		}
 		return row;
+	}
+	
+	public Object get(Object key, String column) {
+		return getRow(key).get(column);
 	}
 }
